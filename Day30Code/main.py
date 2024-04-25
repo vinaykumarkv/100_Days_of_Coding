@@ -6,18 +6,24 @@ from tkinter import messagebox
 def password_generator():
     a2z = string.ascii_uppercase
     a2z = [*a2z]
+    print(a2z)
     n = [str(i) for i in range(1, 10)]
     n = [*n]
+    print(n)
     Sy = string.punctuation
     Sy = [*Sy]
+    print(Sy)
     passwd = ""
     la = lnum = ls = 9
     for i in range(la):
         passwd = passwd + (random.choice(a2z))
+    print(passwd)
     for j in range(lnum):
         passwd = passwd + (random.choice(n))
+    print(passwd)
     for j in range(ls):
         passwd = passwd + (random.choice(Sy))
+    print(passwd)
     passwd = [*passwd]
     random.shuffle(passwd)
     passwd = ''.join(passwd)
@@ -33,10 +39,17 @@ def add_password():
     else:
         is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered:\nEmail: {email}\nPassword: {password}\n is it OK to save?")
         if is_ok == True:
-            with open("data.txt", "a") as data_file:
-                data_file.write(f"{website} | {email} | {password}\n")
-                Website.delete(0, END)
-                Password.delete(0, END)
+            try:
+                with open("data.txt", "a") as data_file:
+                    data_file.write(f"{website} | {email} | {password}\n")
+                    Website.delete(0, END)
+                    Password.delete(0, END)
+            except FileNotFoundError:
+                messagebox.showinfo(title="File Not Found",
+                                    message="Please check if application is installed correctly\n and Re-install the application")
+            except KeyError as error:
+                messagebox.showinfo(title="File Not Found",
+                                    message= f"{error}")
 
 
 

@@ -3,12 +3,12 @@ import datetime as date
 from data import stock_data
 from newsapi import NewsApiClient
 
-newsapi = NewsApiClient(api_key='')
+newsapi = NewsApiClient(api_key='cad58f38ca4a45749e302c1dde4d55be')
 
-servicePlanId = ""
-apiToken = ""
-sinchNumber = ""
-toNumber = ""
+servicePlanId = "24c7d4ef922d4dc08f38f7ba8ccd2a0e"
+apiToken = "89aa6042a4f04be7b38ed368c8645309"
+sinchNumber = "+447520652649"
+toNumber = "+447424696464"
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
@@ -61,10 +61,10 @@ def send_sms():
 		"to": [
 			toNumber
 		],
-		"body": f"{top_headlines}",
+		"body": f"{STOCK}{p}{round(percentage_changed)}\n{top_headlines}",
 		"delivery_report": "none",
 		"type": "mt_text"
-	# this message can be modified by holding on the to the data and reformatting based on percentage
+		# this message can be modified by holding on the to the data and reformatting based on percentage
 		# increase/decrease, I will again come back and reformat once I complete 100 days, during revision
 	}
 	headers = {
@@ -76,21 +76,35 @@ def send_sms():
 	print(smsdata)
 
 
+def arrow_check(percentage_changed):
+	if percentage_changed > 0:
+		return "🔺"
+	else:
+		return "🔻"
+
+
 stock_response = requests.get(
 	f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={STOCK}&apikey={STOCK_SECRET}')
 # faced limitation of data response to 25/day in api so sourcing data from file now.
 counter = 5
 while counter != 0:
 	try:
+		print("trying")
 		yesterday_price = float(stock_data['Time Series (Daily)'][f'{YESTERDAY}']['4. close'])
 		before_price = float(stock_data['Time Series (Daily)'][f'{DAYBEFOREYESTERDAY}']['4. close'])
 		percentage_changed = ((yesterday_price - before_price) / yesterday_price) * 100
 		counter -= 1
-		if percentage_changed >= 5:
+		counter = 0
+		print(round(percentage_changed))
+		if -1 >= round(percentage_changed) or round(percentage_changed) >= 1:
+			p = arrow_check(percentage_changed)
 			send_sms()
+			print("sms sent!")
+			counter = 0
 	except:
 		back_date()
 		counter -= 1
+		print("retrying")
 
 #
 #Optional: Format the SMS message like this:

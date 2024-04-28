@@ -3,12 +3,12 @@ import datetime as date
 from data import stock_data
 from newsapi import NewsApiClient
 
-newsapi = NewsApiClient(api_key='cad58f38ca4a45749e302c1dde4d55be')
+newsapi = NewsApiClient(api_key='')
 
-servicePlanId = "24c7d4ef922d4dc08f38f7ba8ccd2a0e"
-apiToken = "89aa6042a4f04be7b38ed368c8645309"
-sinchNumber = "+447520652649"
-toNumber = "+447424696464"
+servicePlanId = ""
+apiToken = ""
+sinchNumber = ""
+toNumber = ""
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"

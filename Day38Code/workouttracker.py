@@ -10,7 +10,7 @@ sheetly_key = creds.sheetly_key
 today = datetime.today().now()
 formatted_date = today.strftime('%d/%m/%Y')
 formatted_time = today.strftime('%H:%M')
-# print(formatted_date, formatted_time)
+print(formatted_date, formatted_time)
 
 headers = {
 	"x-app-id": app_ID,
@@ -34,12 +34,15 @@ json_query = {
 exercise_endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise"
 
 response = requests.post(url=exercise_endpoint, json=json_query, headers=headers)
+header_sheet = {
+	"authorization": sheetly_key
+}
 data = response.json()
 for exercise in data["exercises"]:
 	duration = exercise['duration_min']
 	calories = exercise['nf_calories']
 	name_exercise = exercise['name']
-	# print(duration,calories,name_exercise, formatted_date, formatted_time)
+	print(duration, calories, name_exercise, formatted_date, formatted_time)
 	data_row = {
 		"workout": {
 			"date": formatted_date,
@@ -49,8 +52,8 @@ for exercise in data["exercises"]:
 			"calories": calories,
 		}
 	}
-	response1 = requests.post(url=sheetly_endpoint_url, json=data_row)
-	# print(response1.text)
+	response1 = requests.post(url=sheetly_endpoint_url, json=data_row, headers=header_sheet)
+	print(response1.text)
 
 
 

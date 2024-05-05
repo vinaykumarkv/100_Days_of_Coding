@@ -21,11 +21,13 @@ class instaFollower:
 		self.login()
 		self.find_followers(searchname)
 		self.follow()
-		# self.driver.quit()
+
+	# self.driver.quit()
 
 	def login(self):
 		time.sleep(5)
-		accept_cookies = self.driver.find_element(By.XPATH,'/html/body/div[4]/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[1]')
+		accept_cookies = self.driver.find_element(By.XPATH,
+		                                          '/html/body/div[4]/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[1]')
 		accept_cookies.click()
 		time.sleep(2)
 		username = self.driver.find_element(By.XPATH, '//*[@id="loginForm"]/div/div[1]/div/label/input')
@@ -50,7 +52,8 @@ class instaFollower:
 		                                               '/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/a[1]/div[1]/div/div/div[2]/div/div')
 		first_search_option.click()
 		time.sleep(5)
-		account = self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/div[2]/section/main/div/header/section/div[1]/div/a/h2')
+		account = self.driver.find_element(By.XPATH,
+		                                   '/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/div[2]/section/main/div/header/section/div[1]/div/a/h2')
 		self.account_name = account.text
 		print(self.account_name)
 
@@ -64,8 +67,9 @@ class instaFollower:
 				follow_button = self.driver.find_element(By.XPATH,
 				                                         f'/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div[{i}]/div/div/div/div[3]/div/button/div/div')
 				follow_button.click()
-			except:
-				cancel_unfollow = self.driver.find_element(By.XPATH,'/html/body/div[7]/div[1]/div/div[2]/div/div/div/div/div/div/button[2]')
+			except:  #if we are already following a user and want to cancel unfollow pop-up
+				cancel_unfollow = self.driver.find_element(By.XPATH,
+				                                           '/html/body/div[7]/div[1]/div/div[2]/div/div/div/div/div/div/button[2]')
 				cancel_unfollow.click()
 
 			print(i)
@@ -73,7 +77,6 @@ class instaFollower:
 
 		time.sleep(10)
 
+
 #add any name of your interest
 instaFollower("vidya balan")
-
-

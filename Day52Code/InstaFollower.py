@@ -60,9 +60,14 @@ class instaFollower:
 		time.sleep(5)
 		#Instagram has 50 followers limit to be seen for any celebrity so I have set limit of 50 to follow
 		for i in range(1, 50, 1):
-			follow_button = self.driver.find_element(By.XPATH,
-			                                         f'/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div[{i}]/div/div/div/div[3]/div/button/div/div')
-			follow_button.click()
+			try:
+				follow_button = self.driver.find_element(By.XPATH,
+				                                         f'/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div[{i}]/div/div/div/div[3]/div/button/div/div')
+				follow_button.click()
+			except:
+				cancel_unfollow = self.driver.find_element(By.XPATH,'/html/body/div[7]/div[1]/div/div[2]/div/div/div/div/div/div/button[2]')
+				cancel_unfollow.click()
+
 			print(i)
 			time.sleep(3)
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head%}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block styles %}
+    <style>
+        .error {
+            border: 2px solid red;
+        }
+    </style>
+    {{ bootstrap.load_css() }}
+    {% endblock %}
+    {% endblock %}
+</head>
+<body>
+    {% block content %}{% endblock %}
+    {% block scripts %}
+    {{ bootstrap.load_js() }}
+    {% endblock %}
+</body>
+</html>

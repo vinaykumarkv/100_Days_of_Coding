@@ -33,7 +33,7 @@ def add_cafe():
     form = CafeForm()
     if request.method == 'POST' and form.validate_on_submit():
         cafe_name = form.cafe_name.data
-        location = form.location.data
+        location = f'=HYPERLINK("{form.location.data}", "Link")'
         open_time = form.open_time.data
         close_time = form.close_time.data
         coffee = form.coffee.data
